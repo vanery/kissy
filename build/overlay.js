@@ -1,7 +1,7 @@
 ﻿/*
 Copyright 2012, KISSY UI Library v1.30rc
 MIT Licensed
-build time: Sep 12 15:29
+build time: Nov 9 16:01
 */
 /**
  * @fileOverview model and control for overlay
@@ -509,7 +509,7 @@ KISSY.add('overlay/popup', function (S, Overlay, undefined) {
 
 
 
-            initializer:function () {
+            initializer: function () {
                 var self = this,
                 // 获取相关联的 DOM 节点
                     trigger = self.get("trigger");
@@ -525,7 +525,7 @@ KISSY.add('overlay/popup', function (S, Overlay, undefined) {
                 }
             },
 
-            _bindTriggerMouse:function () {
+            _bindTriggerMouse: function () {
                 var self = this,
                     trigger = self.get("trigger"),
                     timer;
@@ -556,21 +556,21 @@ KISSY.add('overlay/popup', function (S, Overlay, undefined) {
                 });
             },
 
-            _bindContainerMouse:function () {
+            _bindContainerMouse: function () {
                 var self = this;
                 self.get('el')
                     .on('mouseleave', self._setHiddenTimer, self)
                     .on('mouseenter', self._clearHiddenTimer, self);
             },
 
-            _setHiddenTimer:function () {
+            _setHiddenTimer: function () {
                 var self = this;
                 self._hiddenTimer = S.later(function () {
                     self._hiding();
                 }, self.get('mouseDelay') * 1000);
             },
 
-            _clearHiddenTimer:function () {
+            _clearHiddenTimer: function () {
                 var self = this;
                 if (self._hiddenTimer) {
                     self._hiddenTimer.cancel();
@@ -578,7 +578,7 @@ KISSY.add('overlay/popup', function (S, Overlay, undefined) {
                 }
             },
 
-            _bindTriggerClick:function () {
+            _bindTriggerClick: function () {
                 var self = this;
                 self.__clickPopup = function (ev) {
                     ev.halt();
@@ -593,18 +593,18 @@ KISSY.add('overlay/popup', function (S, Overlay, undefined) {
                 });
             },
 
-            _showing:function (ev) {
+            _showing: function (ev) {
                 var self = this;
                 self.set('currentTrigger', S.one(ev.target));
                 self.show();
             },
 
-            _hiding:function () {
+            _hiding: function () {
                 this.set('currentTrigger', undefined);
                 this.hide();
             },
 
-            destructor:function () {
+            destructor: function () {
                 var self = this,
                     root,
                     t = self.get("trigger");
@@ -632,7 +632,7 @@ KISSY.add('overlay/popup', function (S, Overlay, undefined) {
                 }
             }
         }, {
-            ATTRS:/**
+            ATTRS: /**
              * @lends Overlay.Popup#
              */
             {
@@ -640,12 +640,9 @@ KISSY.add('overlay/popup', function (S, Overlay, undefined) {
                  * Trigger elements to show popup.
                  * @type {KISSY.NodeList}
                  */
-                trigger:{                          // 触发器
-                    setter:function (v) {
-                        if (S.isString(v)) {
-                            v = S.all(v);
-                        }
-                        return v;
+                trigger: {                          // 触发器
+                    setter: function (v) {
+                        return S.all(v);
                     }
                 },
                 /**
@@ -653,38 +650,38 @@ KISSY.add('overlay/popup', function (S, Overlay, undefined) {
                  * @default "click".
                  * @type {String}
                  */
-                triggerType:{
+                triggerType: {
                     // 触发类型
-                    value:'click'
+                    value: 'click'
                 },
-                currentTrigger:{},
+                currentTrigger: {},
                 /**
                  * When trigger type is mouse, the delayed time to show popup.
                  * @default 0.1, in seconds.
                  * @type {Number}
                  */
-                mouseDelay:{
+                mouseDelay: {
                     // triggerType 为 mouse 时, Popup 显示的延迟时间, 默认为 100ms
-                    value:0.1
+                    value: 0.1
                 },
                 /**
                  * When trigger type is click, whether support toggle.
                  * @default false
                  * @type {Boolean}
                  */
-                toggle:{
+                toggle: {
                     // triggerType 为 click 时, Popup 是否有toggle功能
-                    value:false
+                    value: false
                 }
             }
         }, {
-            xclass:'popup',
-            priority:20
+            xclass: 'popup',
+            priority: 20
         });
 
     return Popup;
 }, {
-    requires:["./base"]
+    requires: ["./base"]
 });
 
 /**
