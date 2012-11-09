@@ -162,4 +162,7 @@
         env._comboLoader = new ComboLoader(S);
     })();
 
+
+    S.add('empty', S.noop);
+
 })(KISSY);

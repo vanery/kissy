@@ -1,7 +1,7 @@
 ﻿/*
 Copyright 2012, KISSY UI Library v1.30rc
 MIT Licensed
-build time: Nov 1 01:15
+build time: Nov 9 16:34
 */
 /**
  * @ignore
@@ -479,11 +479,11 @@ build time: Nov 1 01:15
 
         /**
          * The build time of the library.
-         * NOTICE: '20121101011520' will replace with current timestamp when compressing.
+         * NOTICE: '20121109163450' will replace with current timestamp when compressing.
          * @private
          * @type {String}
          */
-        S.__BUILD_TIME = '20121101011520';
+        S.__BUILD_TIME = '20121109163450';
     })();
 
     return S;
@@ -5195,7 +5195,7 @@ build time: Nov 1 01:15
         charset: 'utf-8',
         // file limit number for a single combo url
         comboMaxFileNum: 40,
-        tag: '20121101011520'
+        tag: '20121109163450'
     }, getBaseInfo()));
 
     // Initializes loader.
@@ -5205,6 +5205,9 @@ build time: Nov 1 01:15
         env._loader = new Loader(S);
         env._comboLoader = new ComboLoader(S);
     })();
+
+
+    S.add('empty', S.noop);
 
 })(KISSY);/**
  * @ignore
