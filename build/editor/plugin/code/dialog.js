@@ -1,13 +1,17 @@
 ﻿/*
 Copyright 2012, KISSY UI Library v1.30rc
 MIT Licensed
-build time: Oct 9 23:22
+build time: Nov 19 17:17
 */
 /**
  * insert program code dialog
  * @author yiminghe@gmail.com
  */
-KISSY.add('editor/plugin/code/dialog', function (S, Overlay, MenuButton) {
+KISSY.add('editor/plugin/code/dialog', function (S, Editor, Overlay, MenuButton) {
+
+    var xhtml_dtd = Editor.XHTML_DTD;
+    var NodeType = S.DOM.NodeType;
+    var notWhitespaceEval = Editor.Walker.whitespaces(true);
 
     var codeTypes = [
             ['ActionScript3', 'as3'],
@@ -92,7 +96,6 @@ KISSY.add('editor/plugin/code/dialog', function (S, Overlay, MenuButton) {
             d = self.dialog = new Overlay.Dialog({
                 width: 500,
                 mask: true,
-                autoRender: true,
                 headerContent: '插入代码',
                 bodyContent: S.substitute(bodyTpl, {
                     prefixCls: prefixCls
@@ -100,7 +103,7 @@ KISSY.add('editor/plugin/code/dialog', function (S, Overlay, MenuButton) {
                 footerContent: S.substitute(footTpl, {
                     prefixCls: prefixCls
                 })
-            });
+            }).render();
             el = d.get('el');
 
             self.insert = el.one('.' + prefixCls + 'code-insert');
@@ -135,8 +138,32 @@ KISSY.add('editor/plugin/code/dialog', function (S, Overlay, MenuButton) {
                 type: self.type.get('value'),
                 code: S.escapeHTML(val)
             }), editor.get('document')[0]);
-            editor.insertElement(codeEl);
             self.dialog.hide();
+            // chrome:
+            // insert 完光标定位在了 pre 文字的末尾，不合适
+            // <pre>xxx ^$</pre>
+            // 应该是
+            // <pre>xxxx</pre>
+            // <p>^$</p>
+            editor.insertElement(codeEl);
+            var range = editor.getSelection().getRanges()[0];
+
+            var next = codeEl.next(notWhitespaceEval, 1);
+            var nextName = next && next[0].nodeType == NodeType.ELEMENT_NODE
+                && next.nodeName();
+            // Check if it's a block element that accepts text.
+            if (nextName &&
+                xhtml_dtd.$block[ nextName ] &&
+                xhtml_dtd[ nextName ]['#text']) {
+            } else {
+                next = S.all("<p></p>", editor.get('document')[0]);
+                if (!S.UA.ie) {
+                    next._4e_appendBogus();
+                }
+                codeEl.after(next);
+            }
+            range.moveToElementEditablePosition(next);
+            editor.getSelection().selectRanges([range]);
         },
         show: function () {
             if (!this.dialog) {
@@ -148,5 +175,5 @@ KISSY.add('editor/plugin/code/dialog', function (S, Overlay, MenuButton) {
 
     return CodeDialog;
 }, {
-    requires: ['../overlay/', 'menubutton']
+    requires: ['editor', '../overlay/', 'menubutton']
 });
