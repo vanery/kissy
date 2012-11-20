@@ -18,7 +18,7 @@ KISSY.add("component/uibase/maskrender", function (S, UA, Node) {
     function initMask(self) {
         var maskCls = self.get("prefixCls") + "ext-mask",
             mask = $("<div " +
-            " style='width:" + docWidth() + ";" +
+            " style='width:" + docWidth() + ";display:none;" +
             "left:0;" +
             "top:0;" +
             "height:" + docHeight() + ";" +

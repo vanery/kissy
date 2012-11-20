@@ -1,7 +1,7 @@
 ﻿/*
 Copyright 2012, KISSY UI Library v1.30rc
 MIT Licensed
-build time: Sep 12 15:25
+build time: Nov 20 17:03
 */
 /**
  * Setup component namespace.
@@ -3209,7 +3209,7 @@ KISSY.add("component/uibase/maskrender", function (S, UA, Node) {
     function initMask(self) {
         var maskCls = self.get("prefixCls") + "ext-mask",
             mask = $("<div " +
-            " style='width:" + docWidth() + ";" +
+            " style='width:" + docWidth() + ";display:none;" +
             "left:0;" +
             "top:0;" +
             "height:" + docHeight() + ";" +
