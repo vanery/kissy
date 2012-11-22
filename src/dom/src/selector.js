@@ -6,7 +6,7 @@
 KISSY.add('dom/selector', function (S, DOM, undefined) {
 
     var doc = S.Env.host.document,
-        NodeType=DOM.NodeType,
+        NodeType = DOM.NodeType,
         filter = S.filter,
         require = function (selector) {
             return S.require(selector);
@@ -394,6 +394,7 @@ KISSY.add('dom/selector', function (S, DOM, undefined) {
             el;
 
         if (tag && tag !== ANY) {
+            tag = tag.toLowerCase();
             ret = [];
             for (; i < len; ++i) {
                 el = els[i];
@@ -509,7 +510,7 @@ KISSY.add('dom/selector', function (S, DOM, undefined) {
 
                             // 指定 tag 才进行判断
                             if (tag) {
-                                tagRe = getNodeName(elem) == tag;
+                                tagRe = getNodeName(elem) == tag.toLowerCase();
                             }
 
                             // 指定 cls 才进行判断
