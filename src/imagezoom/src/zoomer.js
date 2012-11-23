@@ -269,7 +269,7 @@ KISSY.add("imagezoom/zoomer", function (S, Node, undefined) {
             }, seconds);
         },
 
-        '_onSetCurrentMouse': function (ev) {
+        '_uiSetCurrentMouse': function (ev) {
             var self = this,
                 lt;
 
@@ -301,30 +301,30 @@ KISSY.add("imagezoom/zoomer", function (S, Node, undefined) {
             self.bigImage.css(lt);
         },
 
-        '_onSetLensWidth': function (v) {
+        '_uiSetLensWidth': function (v) {
             this.lens && this.lens.width(v);
         },
-        '_onSetLensHeight': function (v) {
+        '_uiSetLensHeight': function (v) {
             this.lens && this.lens.height(v);
         },
-        '_onSetLensTop': function (v) {
+        '_uiSetLensTop': function (v) {
             this.lens && this.lens.offset({ 'top': v });
         },
-        '_onSetLensLeft': function (v) {
+        '_uiSetLensLeft': function (v) {
             this.lens && this.lens.offset({ 'left': v });
         },
 
-        '_onSetBigImageWidth': function (v) {
+        '_uiSetBigImageWidth': function (v) {
             var self = this;
             v && self.bigImage && self.bigImage.width(v);
             v && self._bigImageCopy && self._bigImageCopy.width(v);
         },
-        '_onSetBigImageHeight': function (v) {
+        '_uiSetBigImageHeight': function (v) {
             var self = this;
             v && self.bigImage && self.bigImage.height(v);
             v && self._bigImageCopy && self._bigImageCopy.height(v);
         },
-        '_onSetBigImageSrc': function (v) {
+        '_uiSetBigImageSrc': function (v) {
             v && this.bigImage && this.bigImage.attr('src', v);
 
         },
@@ -337,7 +337,7 @@ KISSY.add("imagezoom/zoomer", function (S, Node, undefined) {
             var self = this;
             self.image.attr('src', src);
             self._bigImageCopy.attr('src', src);
-            self._onSetHasZoom(self.get("hasZoom"));
+            self._uiSetHasZoom(self.get("hasZoom"));
             self.loading();
         }
     });
