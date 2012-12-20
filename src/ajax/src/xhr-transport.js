@@ -11,17 +11,9 @@ KISSY.add('ajax/xhr-transport', function (S, io, XhrTransportBase, SubDomainTran
 
     if (detectXhr) {
 
-        // xx.taobao.com => taobao.com
-        // xx.sina.com.cn => sina.com.cn
-        function getMainDomain(host) {
-            var t = host.split('.'), len = t.length, limit = len > 3 ? 3 : 2;
-            if (len < limit) {
-                return t.join('.');
-            } else {
-                return t.reverse().slice(0, limit).reverse().join('.');
-            }
+        function isSubDomain(hostname) {
+            return S.endsWith(hostname, win.document.domain);
         }
-
 
         function XhrTransport(io) {
             var c = io.config,
@@ -32,7 +24,7 @@ KISSY.add('ajax/xhr-transport', function (S, io, XhrTransportBase, SubDomainTran
             if (crossDomain) {
 
                 // 跨子域
-                if (getMainDomain(location.hostname) == getMainDomain(c.uri.getHostname())) {
+                if (isSubDomain(c.uri.getHostname())) {
                     return new SubDomainTransport(io);
                 }
 

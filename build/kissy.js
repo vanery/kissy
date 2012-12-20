@@ -1,7 +1,7 @@
 ﻿/*
 Copyright 2012, KISSY UI Library v1.30rc
 MIT Licensed
-build time: Nov 22 22:06
+build time: Dec 20 14:19
 */
 /**
  * @ignore
@@ -479,11 +479,11 @@ build time: Nov 22 22:06
 
         /**
          * The build time of the library.
-         * NOTICE: '20121122220620' will replace with current timestamp when compressing.
+         * NOTICE: '20121220141911' will replace with current timestamp when compressing.
          * @private
          * @type {String}
          */
-        S.__BUILD_TIME = '20121122220620';
+        S.__BUILD_TIME = '20121220141911';
     })();
 
     return S;
@@ -5195,7 +5195,7 @@ build time: Nov 22 22:06
         charset: 'utf-8',
         // file limit number for a single combo url
         comboMaxFileNum: 40,
-        tag: '20121122220620'
+        tag: '20121220141911'
     }, getBaseInfo()));
 
     // Initializes loader.
@@ -13614,7 +13614,7 @@ KISSY.add("json/json2", function(S, UA) {
 /*
 Copyright 2012, KISSY UI Library v1.30rc
 MIT Licensed
-build time: Sep 12 15:25
+build time: Dec 20 14:19
 */
 /**
  * @ignore
@@ -15611,17 +15611,9 @@ KISSY.add('ajax/xhr-transport', function (S, io, XhrTransportBase, SubDomainTran
 
     if (detectXhr) {
 
-        // xx.taobao.com => taobao.com
-        // xx.sina.com.cn => sina.com.cn
-        function getMainDomain(host) {
-            var t = host.split('.'), len = t.length, limit = len > 3 ? 3 : 2;
-            if (len < limit) {
-                return t.join('.');
-            } else {
-                return t.reverse().slice(0, limit).reverse().join('.');
-            }
+        function isSubDomain(hostname) {
+            return S.endsWith(hostname, win.document.domain);
         }
-
 
         function XhrTransport(io) {
             var c = io.config,
@@ -15632,7 +15624,7 @@ KISSY.add('ajax/xhr-transport', function (S, io, XhrTransportBase, SubDomainTran
             if (crossDomain) {
 
                 // 跨子域
-                if (getMainDomain(location.hostname) == getMainDomain(c.uri.getHostname())) {
+                if (isSubDomain(c.uri.getHostname())) {
                     return new SubDomainTransport(io);
                 }
 
