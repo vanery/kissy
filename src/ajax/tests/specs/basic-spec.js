@@ -130,7 +130,7 @@ KISSY.use("json,ajax", function (S, JSON, IO) {
             // https://github.com/kissyteam/kissy/issues/187
             it("can ignore protocol", function () {
                 var ok = 0;
-                IO.jsonp('//yiminghe.taobao.com/kissy_git/kissy1.3rc/src/ajax/tests/data/interface.php', {
+                IO.jsonp('//yiminghe.taobao.com/kissy_git/kissy/src/ajax/tests/data/interface.php', {
                     myparam:'taobao'
                 }, function (data) {
                     expect(typeof data).toBe('object');
@@ -516,7 +516,7 @@ KISSY.use("json,ajax", function (S, JSON, IO) {
                 var ok, o;
 
                 runs(function () {
-                    //IO.get('http://test.com/kissy1.3rc/src/ajax/tests/interface.php?t=get', function(data) {
+                    //IO.get('http://test.com/kissy/src/ajax/tests/interface.php?t=get', function(data) {
                     // test.com -> 127.0.0.1
                     // jQuery 里，当跨域时，dataType 为 json 时，依旧会调用 xhr. KISSY 处理逻辑与 jQuery 一致。
                     IO.get('../data/interface.php?t=get', function (data) {
@@ -550,7 +550,7 @@ KISSY.use("json,ajax", function (S, JSON, IO) {
                     // 不跨域时，jQuery 会依旧调用 xhr 处理，得到结果后，再通过 globalEval 执行
                     // KISSY 里，无论跨不跨域，只要 dataType 为 jsonp, 都用 getScript 处理
                     // 1.2 修正，和 jquery 保持一致，ie 下可以有出错处理，也方便 abort
-                    //IO.get('http://test.com/kissy1.3rc/src/ajax/tests/interface.php?t=get', function(data) {
+                    //IO.get('http://test.com/kissy/src/ajax/tests/interface.php?t=get', function(data) {
                     IO.get('../data/interface.php?t=get', function (data) {
                         ok = true;
                         o = data;
@@ -577,7 +577,7 @@ KISSY.use("json,ajax", function (S, JSON, IO) {
                     // 跨域时，jQuery 会调用 getScript 方式处理
                     // KISSY 里，都用 getScript 方式处理
                     // 1.2 使用 xhr
-                    //$.get('http://test.com/kissy1.3rc/src/ajax/tests/interface.php?t=get&dataType=script', function(data) {
+                    //$.get('http://test.com/kissy/src/ajax/tests/interface.php?t=get&dataType=script', function(data) {
                     IO.get('../data/interface.php?t=get&dataType=script', function () {
                         ok = true;
                         // 在 jQuery 里，此处 data 返回 script.innerHTML
